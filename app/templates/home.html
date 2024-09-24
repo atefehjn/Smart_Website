@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+<section class="banner_part">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 col-xl-6">
+				<div class="banner_text">
+					<div class="banner_text_iner">
+						<h4 class="text-uppercase">We are here for your care</h4>
+						<h2 class="display-4">Welcome to <strong>Breast Cancer Diagnosis Hub</strong></h2>
+						<p class="text-justify">
+							where cutting-edge machine
+							learning technology empowers your health. Our platform offers
+							accurate, personalized insights to support early detection and
+							diagnosis of breast cancer. By leveraging advanced AI, we aim to
+							provide you with clear, reliable results, helping you take
+							proactive steps for your well-being. Your health is our priority,
+							and we're here to assist you with knowledge, care, and precision
+							every step of the way.
+						</p>
+						<a
+							href="#"
+							class="btn_2"
+							>Check Your Health Now</a
+						>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="banner_img">
+					<img
+						src="{{ url_for('static', filename='images/icon/banner_img.png')}}"
+						alt="" />
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
