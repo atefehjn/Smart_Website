@@ -11,9 +11,7 @@
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
-			integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
-			crossorigin="anonymous" />
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 		<link
 			rel="stylesheet"
 			href="{{ url_for('static', filename='css/style.css') }}" />
@@ -51,28 +49,40 @@
 										<a
 											class="nav-link"
 											href="index.html">
-											<i class="fas fa-home" style="color:#0065e1; font-size: 24px;"></i> Home
+											<i
+												class="fas fa-home"
+												style="color: #0065e1; font-size: 24px"></i>
+											Home
 										</a>
 									</li>
 									<li class="nav-item">
 										<a
 											class="nav-link"
 											href="about.html">
-											<i class="fas fa-info-circle" style="color:#0065e1; font-size: 24px;"></i> About
+											<i
+												class="fas fa-info-circle"
+												style="color: #0065e1; font-size: 24px"></i>
+											About
 										</a>
 									</li>
 									<li class="nav-item">
 										<a
 											class="nav-link"
 											href="Doctor.html">
-											<i class="fas fa-stethoscope" style="color:#0065e1; font-size: 24px;"></i> Services
+											<i
+												class="fas fa-stethoscope"
+												style="color: #0065e1; font-size: 24px"></i>
+											Services
 										</a>
 									</li>
 									<li class="nav-item">
 										<a
 											class="nav-link"
 											href="contact.html">
-											<i class="fas fa-envelope" style="color:#0065e1; font-size: 24px;"></i> Contact
+											<i
+												class="fas fa-envelope"
+												style="color: #0065e1; font-size: 24px"></i>
+											Contact
 										</a>
 									</li>
 								</ul>
@@ -119,6 +129,7 @@
 			<div class="footer section_padding">
 				<div class="container">
 					<div class="row justify-content-between">
+						<!-- Logo and About Us Section -->
 						<div class="col-xl-2 col-md-4 col-sm-6 single-footer-widget">
 							<a
 								href="#"
@@ -126,54 +137,58 @@
 								<img
 									class="site-logo"
 									src="{{ url_for('static', filename='images/icon/logo.png')}}"
-									alt="#" />
+									alt="Breast Cancer Diagnosis Hub Logo" />
 							</a>
-							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-								eiusmod tempor
-							</p>
 							<div class="social_logo">
-								<a href="#"><i class="ti-facebook"></i></a>
-								<a href="#"> <i class="ti-twitter"></i> </a>
-								<a href="#"><i class="ti-instagram"></i></a>
-								<a href="#"><i class="ti-skype"></i></a>
+								<a href="#"><i class="fab fa-facebook-f"></i></a>
+								<a href="#"><i class="fab fa-twitter"></i></a>
+								<a href="#"><i class="fab fa-instagram"></i></a>
+								<a href="#"><i class="fab fa-linkedin-in"></i></a>
 							</div>
 						</div>
+
+						<!-- Quick Links -->
 						<div class="col-xl-2 col-sm-6 col-md-4 single-footer-widget">
 							<h4>Quick Links</h4>
 							<ul>
-								<li><a href="#">About us</a></li>
-								<li><a href="#">Department</a></li>
-								<li><a href="#"> Online payment</a></li>
-								<li><a href="#">Careers</a></li>
-								<li><a href="#">Department</a></li>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Our Services</a></li>
+								<li><a href="#">AI Technology</a></li>
+								<li><a href="#">Support</a></li>
+								<li><a href="#">Contact Us</a></li>
 							</ul>
 						</div>
+
+						<!-- Explore -->
 						<div class="col-xl-2 col-sm-6 col-md-4 single-footer-widget">
 							<h4>Explore</h4>
 							<ul>
-								<li><a href="#">In the community</a></li>
-								<li><a href="#">IU health foundation</a></li>
-								<li><a href="#">Family support </a></li>
-								<li><a href="#">Business solution</a></li>
-								<li><a href="#">Community clinic</a></li>
+								<li><a href="#">Our Impact</a></li>
+								<li><a href="#">Patient Stories</a></li>
+								<li><a href="#">Research & Innovations</a></li>
+								<li><a href="#">FAQs</a></li>
+								<li><a href="#">Privacy Policy</a></li>
 							</ul>
 						</div>
+
+						<!-- Resources -->
 						<div class="col-xl-2 col-sm-6 col-md-6 single-footer-widget">
 							<h4>Resources</h4>
 							<ul>
-								<li><a href="#">Lights were season</a></li>
-								<li><a href="#"> Their is let wherein</a></li>
-								<li><a href="#">which given over</a></li>
-								<li><a href="#">Without given She</a></li>
-								<li><a href="#">Isn two signs think</a></li>
+								<li><a href="#">Breast Cancer Guide</a></li>
+								<li><a href="#">Diagnosis & Treatment</a></li>
+								<li><a href="#">Support Groups</a></li>
+								<li><a href="#">Medical Experts</a></li>
+								<li><a href="#">Contact Professionals</a></li>
 							</ul>
 						</div>
+
+						<!-- Newsletter Signup -->
 						<div class="col-xl-3 col-sm-6 col-md-6 single-footer-widget">
 							<h4>Newsletter</h4>
-							<p>
-								Seed good winged wherein which night multiply midst does not
-								fruitful
+							<p class="text-justify">
+								Stay updated on the latest research, technologies, and support
+								for breast cancer care. Join our community.
 							</p>
 							<div
 								class="form-wrap"
@@ -202,7 +217,6 @@
 											value=""
 											type="text" />
 									</div>
-
 									<div class="info"></div>
 								</form>
 							</div>
