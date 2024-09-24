@@ -3322,7 +3322,7 @@ ul {
 }
 
 /* line 97, ../../01 cl html template/03_jun 2019/182_medico_html/sass/_footer.scss */
-.footer-area .social_logo {
+.footer-area {
   margin-top: 20px;
 }
 
@@ -3330,6 +3330,7 @@ ul {
 .footer-area .social_logo a {
   color: #b8bcbf;
   margin-right: 10px;
+  font-size: 20px;
 }
 
 /* line 103, ../../01 cl html template/03_jun 2019/182_medico_html/sass/_footer.scss */
