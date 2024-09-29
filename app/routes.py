@@ -1,7 +1,8 @@
 from flask import Flask, render_template, redirect, url_for, flash,Blueprint,abort, session, request
 from flask_sqlalchemy import SQLAlchemy
 from .create_db import db, User, bcrypt
-
+from .ml_prediction import prediction
+from .input import PredictionForm
 
 # from forms import RegistrationForm,SignInForm
 bp = Blueprint('main', __name__)
@@ -42,7 +43,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, password):
             session['username'] = user.username
             flash('Login successful!', 'success')
-            return redirect(url_for('main.inputdata'))
+            return redirect(url_for('main.predict'))
         else:
             flash('Login failed. Please check your username and password.', 'danger')
             return redirect(url_for('main.login'))  
@@ -72,34 +73,65 @@ def login_required(f):
     return wrap
 
 
-@bp.route('/input')
-@login_required
-def inputdata():
-    if 'username' not in session:
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('main.login'))
-    return "Input Data Page Content"
-
-
-@bp.route('/predict')
-@login_required
-def predict():
-    if 'username' not in session:
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('main.login'))
-   
+# @bp.route('/input')
+# @login_required
+# def inputdata():
+#     if 'username' not in session:
+#         flash('You need to log in first!', 'danger')
+#         return redirect(url_for('main.login'))
+    
+#     return render_template('input.html')
     
 
 
-    return "Here is predict page"
 
 
 
 
 
 
+# @bp.route('/predict')
+# @login_required
+# def predict():
+#     if 'username' not in session:
+#         flash('You need to log in first!', 'danger')
+#         return rediinputdatarect(url_for('main.login'))
+   
+#     if request.method == 'POST':
 
+#         mean_radius = request.form['mean_radius']
+#         mean_texture = request.form['mean_texture']
+#         mean_perimeter = request.form['mean_perimeter']
+#         mean_area = request.form['mean_area']
 
+#         data = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
+#         result = predict(data)
+#         if result[0] == 0:
+#             result = "Benign"
+#         if result[0] == 1:
+#             result = "Malignant"
 
+#     return redirect(url_for('main.predict')) 
+@bp.route('/predict' ,methods=['GET', 'POST'])
+@login_required
+def predict():
+    form = PredictionForm()
+    if form.validate_on_submit():
+        mean_radius = form.mean_radius.data
+        mean_texture = form.mean_texture.data
+        mean_perimeter = form.mean_perimeter.data
+        mean_area = form.mean_area.data
 
+        # Assuming you have some function that handles predictions
+        data = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
+        result = prediction(data)
 
+        if result[0] == 0:
+            result = "Benign"
+        else:
+            result = "Malignant"
+
+        flash(f'Prediction Result: {result}', 'success')
+        return redirect(url_for('main.predict'))
+
+    return render_template('input.html', form=form)
