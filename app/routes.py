@@ -75,9 +75,9 @@ def predict():
         result = prediction(data)
 
         if result[0] == 0:
-            result = "Benign"
-        else:
             result = "Malignant"
+        else:
+            result = "Benign"
 
         flash(f'Prediction Result: {result}', 'success')
         return redirect(url_for('main.predict'))
