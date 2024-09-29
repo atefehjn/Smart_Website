@@ -7,14 +7,9 @@ from .input import PredictionForm
 # from forms import RegistrationForm,SignInForm
 bp = Blueprint('main', __name__)
 
-
-
-
 @bp.route('/')
 def index():
     return render_template('home.html')
-
-
 
 @bp.route('/register', methods=['POST', 'GET'])
 def register():
@@ -30,8 +25,6 @@ def register():
         return redirect(url_for('main.login'))
 
     return render_template('register.html')
-
-
 
 @bp.route('/login', methods=['POST', 'GET'])
 def login():
@@ -50,11 +43,6 @@ def login():
 
     return render_template('login.html')
 
-
-
-
-
-
 @bp.route('/logout')
 def logout():
     session.pop('username')
@@ -72,46 +60,6 @@ def login_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-
-# @bp.route('/input')
-# @login_required
-# def inputdata():
-#     if 'username' not in session:
-#         flash('You need to log in first!', 'danger')
-#         return redirect(url_for('main.login'))
-    
-#     return render_template('input.html')
-    
-
-
-
-
-
-
-
-
-# @bp.route('/predict')
-# @login_required
-# def predict():
-#     if 'username' not in session:
-#         flash('You need to log in first!', 'danger')
-#         return rediinputdatarect(url_for('main.login'))
-   
-#     if request.method == 'POST':
-
-#         mean_radius = request.form['mean_radius']
-#         mean_texture = request.form['mean_texture']
-#         mean_perimeter = request.form['mean_perimeter']
-#         mean_area = request.form['mean_area']
-
-#         data = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
-#         result = predict(data)
-#         if result[0] == 0:
-#             result = "Benign"
-#         if result[0] == 1:
-#             result = "Malignant"
-
-#     return redirect(url_for('main.predict')) 
 @bp.route('/predict' ,methods=['GET', 'POST'])
 @login_required
 def predict():
