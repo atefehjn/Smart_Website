@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="input_container">
+        <h1>Enter values for Prediction</h1>
+    
+    {% for message in get_flashed_messages(category_filter=["success"]) %}
+        <div class="flash-message">{{ message }}</div>
+    {% endfor %}
+    <form method="POST" action="{{url_for('main.input_data') }}" novalidate>
+        
+        {{form.csrf_token}}
+        <p>
+            {{ form.mean_radius.label }}<br>
+            {{ form.mean_radius() }}<br>
+            {% for error in form.mean_radius.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mean_texture.label }}<br>
+            {{ form.mean_texture() }}<br>
+            {% for error in form.mean_texture.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mean_perimeter.label }}<br>
+            {{ form.mean_perimeter() }}<br>
+            {% for error in form.mean_perimeter.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.mean_area.label }}<br>
+            {{ form.mean_area() }}<br>
+            {% for error in form.mean_area.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </p>
+        <p>{{ form.predict() }}</p>
+    </form>
+</div>
+   
+{% endblock %}
