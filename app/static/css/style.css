@@ -5398,3 +5398,7 @@ h1, h2, h3, h4, h5, h6 {
 strong {
   color: #d9534f; /* red color for emphasis */
 }
+.form-container{
+  margin-top: 150px;
+  margin-bottom: 50px;
+}
