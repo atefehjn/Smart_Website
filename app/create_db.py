@@ -15,9 +15,9 @@ class User(db.Model):
 class Prediction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    mean_radius = db.Column(db.Integer, nullable=False)
-    mean_texture=db.Column(db.Integer, nullable=False)
-    mean_perimeter=db.Column(db.Integer, nullable=False)
-    mean_area=db.Column(db.Integer, nullable=False)
+    mean_radius = db.Column(db.Float, nullable=False)
+    mean_texture=db.Column(db.Float, nullable=False)
+    mean_perimeter=db.Column(db.Float, nullable=False)
+    mean_area=db.Column(db.Float, nullable=False)
     prediction_result = db.Column(db.String(50), nullable=False)
     timestamp = db.Column(db.DateTime, default= datetime.now(timezone.utc))
