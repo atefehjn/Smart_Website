@@ -13,6 +13,7 @@ from flask_sqlalchemy import SQLAlchemy
 from .create_db import db, User, bcrypt,Prediction
 from .ml_prediction import prediction
 from .input_form import InputForm
+from datetime import datetime,timezone
 
 # from forms import RegistrationForm,SignInForm
 bp = Blueprint("main", __name__)
@@ -91,39 +92,41 @@ def input_data():
     form = InputForm()
     if request.method == "POST":
         if form.validate_on_submit():
-            featurs = [
+            features = [
                 float(request.form["mean_radius"]),
                 float(request.form["mean_texture"]),
                 float(request.form["mean_perimeter"]),
                 float(request.form["mean_area"]),
             ]
-            # feature_values = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
-            feature_values = [featurs]
-            # print(f'feature_value:{feature_values}')
+            feature_values = [features]
 
+            # Get the prediction from your machine learning model
             result = prediction(feature_values)
             if result[0] == 0:
                 predicted_cancer = "Malignant"
-                explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
+                explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably."
             else:
                 predicted_cancer = "Benign"
                 explanation = "Benign tumors are noncancerous. They stay in their primary location without invading other sites of the body."
 
-             # Get the current user's ID
+            # Get the current user's ID
             current_user = User.query.filter_by(username=session["username"]).first()
             user_id = current_user.id
 
             # Create a new Prediction entry
             new_prediction = Prediction(
                 user_id=user_id,
-                input_data=str(feature_values),  # Convert the list to a string or JSON
+                mean_radius=features[0],  # Save the individual feature values
+                mean_texture=features[1],
+                mean_perimeter=features[2],
+                mean_area=features[3],
                 prediction_result=predicted_cancer,
+                timestamp=datetime.now(timezone.utc)  # Ensure timestamp is set correctly
             )
 
             # Add the new prediction to the database
             db.session.add(new_prediction)
             db.session.commit()
-
 
             return render_template(
                 "result.html",
@@ -133,6 +136,14 @@ def input_data():
 
     return render_template("input.html", form=form)
 
+@bp.route("/history", methods=["GET"])
+@login_required
+def prediction_history():
+    
+    current_user = User.query.filter_by(username=session["username"]).first()
+    predictions = Prediction.query.filter_by(user_id=current_user.id).all()
+
+    return render_template("history.html", predictions=predictions)
 
 # @bp.route('/result')
 # @login_required

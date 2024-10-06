@@ -1,0 +1,41 @@
+<!-- templates/history.html -->
+{% extends "base.html" %} {% block title %}History{% endblock %} {% block
+content %}
+<section class="banner_part">
+	<div class="container form-container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-6">
+				<h1>Your Prediction History</h1>
+				<table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Mean Radius</th>
+                            <th>Mean Texture</th>
+                            <th>Mean Perimeter</th>
+                            <th>Mean Area</th>
+                            <th>Prediction Result</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prediction in predictions %}
+                        <tr>
+                            <td>{{ prediction.mean_radius }}</td>
+                            <td>{{ prediction.mean_texture }}</td>
+                            <td>{{ prediction.mean_perimeter }}</td>
+                            <td>{{ prediction.mean_area }}</td>
+                            <td>{{ prediction.prediction_result }}</td>
+                            <td>{{ prediction.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if not predictions %}
+                <p>No predictions found.</p>
+                {% endif %}                
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
