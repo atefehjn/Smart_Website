@@ -5,17 +5,33 @@
 			<div class="col-lg-6 col-xl-6">
 				<div class="banner_text">
 					<div class="banner_text_iner">
+						{% for message in get_flashed_messages(category_filter=["success"])
+						%}
+						<div
+							class="alert alert-success alert-dismissible fade show"
+							role="alert">
+							{{ message }}
+							<button
+								type="button"
+								class="close"
+								data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						{% endfor %}
 						<h4 class="text-uppercase">We are here for your care</h4>
-						<h2 class="display-4">Welcome to <strong>Breast Cancer Diagnosis Hub</strong></h2>
+						<h2 class="display-4">
+							Welcome to <strong>Breast Cancer Diagnosis Hub</strong>
+						</h2>
 						<p class="text-justify">
-							where cutting-edge machine
-							learning technology empowers your health. Our platform offers
-							accurate, personalized insights to support early detection and
-							diagnosis of breast cancer. By leveraging advanced AI, we aim to
-							provide you with clear, reliable results, helping you take
-							proactive steps for your well-being. Your health is our priority,
-							and we're here to assist you with knowledge, care, and precision
-							every step of the way.
+							where cutting-edge machine learning technology empowers your
+							health. Our platform offers accurate, personalized insights to
+							support early detection and diagnosis of breast cancer. By
+							leveraging advanced AI, we aim to provide you with clear, reliable
+							results, helping you take proactive steps for your well-being.
+							Your health is our priority, and we're here to assist you with
+							knowledge, care, and precision every step of the way.
 						</p>
 						<a
 							href="{{url_for('main.input_data')}}"

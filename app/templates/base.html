@@ -5,7 +5,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
-		<title>Student Portal</title>
+		<title>Cancer Prediction website</title>
 		<link
 			rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -87,8 +87,28 @@
 									</li>
 								</ul>
 							</div>
-
+							{% if 'username' in session %}
+							<!-- User is logged in, show the logout button -->
 							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.logout') }}"
+								>Logout</a
+							>
+							{% else %}
+							<!-- User is not logged in, show the login and register buttons -->
+							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.login') }}"
+								>Log In</a
+							>
+							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.register') }}"
+								>Register</a
+							>
+							{% endif %}
+
+							<!-- <a
 								class="btn_2 d-none d-lg-block ml-1"
 								href="login"
 								>Log In</a
@@ -97,7 +117,7 @@
 								class="btn_2 d-none d-lg-block ml-1"
 								href="register"
 								>Register</a
-							>
+							> -->
 						</nav>
 					</div>
 				</div>

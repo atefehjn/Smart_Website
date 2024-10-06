@@ -4,6 +4,35 @@
 	<div class="container form-container">
 		<div class="rpw d-flex justify-content-center">
 			<div class="col-lg-6">
+                <!-- Flash messages -->
+				{% for message in get_flashed_messages(category_filter=["warning"]) %}
+				<div
+					class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					{{ message }}
+					<button
+						type="button"
+						class="close"
+						data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
+                {% for message in get_flashed_messages(category_filter=["success"]) %}
+				<div
+					class="alert alert-success alert-dismissible fade show"
+					role="alert">
+					{{ message }}
+					<button
+						type="button"
+						class="close"
+						data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
 				<h2 class="mt-5">Login</h2>
 				<form method="POST">
 					<div class="form-group">
@@ -22,13 +51,15 @@
 							name="password"
 							required />
 					</div>
-					<button
-						type="submit"
-						class="btn btn-primary">
-						Login
-					</button>
+					<div class="d-flex justify-content-end">
+                        <button
+                            type="submit"
+                            class="btn btn-lg align-items-end btn-primary ms-auto">
+                            Login
+                        </button>
+                    </div>
 				</form>
-				<p class="mt-2">
+				<p class="mt-2 text-right">
 					Don't have an account?
 					<a href="{{ url_for('main.register') }}">Register here</a>.
 				</p>
