@@ -106,7 +106,7 @@ def input_data():
                 explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
             else:
                 predicted_cancer = "Benign"
-                explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
+                explanation = "Benign tumors are noncancerous. They stay in their primary location without invading other sites of the body."
 
             return render_template(
                 "result.html",
