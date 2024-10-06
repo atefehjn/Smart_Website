@@ -1,19 +1,15 @@
 from flask import Flask, render_template, redirect, url_for, flash,Blueprint,abort, session, request
 from flask_sqlalchemy import SQLAlchemy
 from .create_db import db, User, bcrypt
-
+from .ml_prediction import prediction
+from .input_form import InputForm
 
 # from forms import RegistrationForm,SignInForm
 bp = Blueprint('main', __name__)
 
-
-
-
 @bp.route('/')
 def index():
     return render_template('home.html')
-
-
 
 @bp.route('/register', methods=['POST', 'GET'])
 def register():
@@ -30,8 +26,6 @@ def register():
 
     return render_template('register.html')
 
-
-
 @bp.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -42,17 +36,12 @@ def login():
         if user and bcrypt.check_password_hash(user.password, password):
             session['username'] = user.username
             flash('Login successful!', 'success')
-            return redirect(url_for('main.inputdata'))
+            return redirect(url_for('main.input_data'))
         else:
             flash('Login failed. Please check your username and password.', 'danger')
             return redirect(url_for('main.login'))  
 
     return render_template('login.html')
-
-
-
-
-
 
 @bp.route('/logout')
 def logout():
@@ -71,35 +60,36 @@ def login_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-
-@bp.route('/input')
+@bp.route('/input' , methods=['GET', 'POST'])
 @login_required
-def inputdata():
-    if 'username' not in session:
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('main.login'))
-    return "Input Data Page Content"
+def input_data():
+    form = InputForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            featurs = [
+                float(request.form['mean_radius']), 
+                float(request.form['mean_texture']), 
+                float(request.form['mean_perimeter']), 
+                float(request.form['mean_area'])
+            ]
+            # feature_values = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
+            feature_values = [featurs]
+            # print(f'feature_value:{feature_values}')
 
+            result= prediction(feature_values)
+            if result[0] == 0:
+                predicted_cancer = "Benign"
+                explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
+            else:
+                predicted_cancer = "Malignant"
+                explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
+            
+            return render_template('result.html', Cancer_prediction= predicted_cancer, Explanation = explanation )
+     
+    return render_template('input.html', form=form)
 
-@bp.route('/predict')
+@bp.route('/result')
 @login_required
-def predict():
-    if 'username' not in session:
-        flash('You need to log in first!', 'danger')
-        return redirect(url_for('main.login'))
-   
-    
-
-
-    return "Here is predict page"
-
-
-
-
-
-
-
-
-
-
-
+def result():
+    #dispaly outputed result.
+    return render_template('result.html')
