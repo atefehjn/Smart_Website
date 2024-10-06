@@ -87,7 +87,9 @@
 									</li>
 								</ul>
 							</div>
-							{% if 'username' in session %}
+							<!-- {% if session %}
+							<pre>{{ session }}</pre>
+							{% endif %} {% if 'username' in session %} -->
 							<!-- User is logged in, show the logout button -->
 							<a
 								class="btn_2 d-none d-lg-block ml-1"
@@ -128,7 +130,6 @@
 				</div>
 			</div>
 		</header>
-		
 
 		<!-- Main Block -->
 		<main>{% block content %}{% endblock %}</main>

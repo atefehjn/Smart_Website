@@ -69,7 +69,8 @@ def login():
 
 @bp.route("/logout")
 def logout():
-    session.pop("username")
+    session.pop("username",None)
+    session.clear()
     flash("You are logged out", "success")
 
     return redirect(url_for("main.index"))
