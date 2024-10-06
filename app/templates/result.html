@@ -1,15 +1,26 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Predicted result{% endblock %} {%
+block content %}
 
-{% block title %}Predicted result{% endblock %}
+<section class="banner_part">
+	<div class="container form-container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-6">
+				<h2 class="display-4 text-center">Predicted result</h2>
+				<p class="text-center">
+					The predicted cancer diagnosis is:
+					<strong> {{Cancer_prediction}}</strong>
+				</p>
+				<p class="text-center">{{Explanation}}</p>
+				<div class="text-center mt-2">
+					<a
+						class="btn_2"
+						href="{{url_for('main.input_data')}}"
+						>Predict cancer Again</a
+					>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-{% block content %}
-
-
-    <div class="res_container">
-        <h2>Predicted result</h2>
-        <p> The predicted cancer diagnosis is: <strong> {{Cancer_prediction}}</strong></p>
-        <p>{{Explanation}}</p>
-        <a href="{{url_for('main.input_data')}}">Predict cancer Again</a>
-    </div>
-    
-    {% endblock %}
+{% endblock %}
