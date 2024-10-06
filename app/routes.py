@@ -107,7 +107,7 @@ def input_data():
                 explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
             else:
                 predicted_cancer = "Benign"
-                explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
+                explanation = "Benign tumors are noncancerous. They stay in their primary location without invading other sites of the body."
 
              # Get the current user's ID
             current_user = User.query.filter_by(username=session["username"]).first()
