@@ -5,7 +5,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
-		<title>Student Portal</title>
+		<title>Cancer Prediction website</title>
 		<link
 			rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -24,7 +24,7 @@
 						<nav class="navbar navbar-expand-lg navbar-light">
 							<a
 								class="navbar-brand"
-								href="index.html">
+								href="{{url_for('main.index')}}">
 								<img
 									class="site-logo"
 									src="{{ url_for('static', filename='images/icon/logo.png')}}"
@@ -48,7 +48,7 @@
 									<li class="nav-item active">
 										<a
 											class="nav-link"
-											href="index.html">
+											href="{{url_for('main.index')}}">
 											<i
 												class="fas fa-home"
 												style="color: #0065e1; font-size: 24px"></i>
@@ -58,7 +58,7 @@
 									<li class="nav-item">
 										<a
 											class="nav-link"
-											href="about.html">
+											href="#">
 											<i
 												class="fas fa-info-circle"
 												style="color: #0065e1; font-size: 24px"></i>
@@ -68,7 +68,7 @@
 									<li class="nav-item">
 										<a
 											class="nav-link"
-											href="Doctor.html">
+											href="{{url_for('main.input_data')}}">
 											<i
 												class="fas fa-stethoscope"
 												style="color: #0065e1; font-size: 24px"></i>
@@ -87,8 +87,28 @@
 									</li>
 								</ul>
 							</div>
-
+							{% if 'username' in session %}
+							<!-- User is logged in, show the logout button -->
 							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.logout') }}"
+								>Logout</a
+							>
+							{% else %}
+							<!-- User is not logged in, show the login and register buttons -->
+							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.login') }}"
+								>Log In</a
+							>
+							<a
+								class="btn_2 d-none d-lg-block ml-1"
+								href="{{ url_for('main.register') }}"
+								>Register</a
+							>
+							{% endif %}
+
+							<!-- <a
 								class="btn_2 d-none d-lg-block ml-1"
 								href="login"
 								>Log In</a
@@ -97,7 +117,7 @@
 								class="btn_2 d-none d-lg-block ml-1"
 								href="register"
 								>Register</a
-							>
+							> -->
 						</nav>
 					</div>
 				</div>

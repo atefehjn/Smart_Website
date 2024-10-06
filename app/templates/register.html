@@ -1,26 +1,56 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Register{% endblock %} {% block
+content %}
 
-{% block title %}Register{% endblock %}
-
-{% block content %}
-
-<br>
-<br>
-<br>
-<br>
-<div class="container">
-    <h2 class="mt-5">Register</h2>
-    <form method="POST">
-        <div class="form-group">
-            <label>Username</label>
-            <input type="text" class="form-control" name="username" required>
-        </div>
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-    <p class="mt-2">Already have an account? <a href="{{ url_for('main.login') }}">Login here</a>.</p>
-</div>
+<section class="banner_part">
+	<div class="container form-container">
+		<div class="rpw d-flex justify-content-center">
+			<div class="col-lg-6">
+                {% for message in get_flashed_messages(category_filter=["warning"]) %}
+				<div
+					class="alert alert-warning alert-dismissible fade show"
+					role="alert">
+					{{ message }}
+					<button
+						type="button"
+						class="close"
+						data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
+				<h2 class="mt-5">Register</h2>
+				<form method="POST">
+					<div class="form-group">
+						<label>Username</label>
+						<input
+							type="text"
+							class="form-control"
+							name="username"
+							required />
+					</div>
+					<div class="form-group">
+						<label>Password</label>
+						<input
+							type="password"
+							class="form-control"
+							name="password"
+							required />
+					</div>
+					<div class="d-flex justify-content-end">
+						<button
+							type="submit"
+							class="btn btn-lg align-items-end btn-primary ms-auto">
+							Register
+						</button>
+					</div>
+				</form>
+				<p class="mt-2 text-right">
+					Already have an account?
+					<a href="{{ url_for('main.login') }}">Login here</a>.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 {% endblock %}
