@@ -1,3 +1,3 @@
 # Smart_Website
-for see the website use this command
+To see the website, use the command 
 <code>python3 run.py</code>
