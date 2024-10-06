@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="banner_part">
+            <div class="container">
+                <h1>Enter values for Prediction</h1>
+            
+            {% for message in get_flashed_messages(category_filter=["success"]) %}
+                <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+            <form  method="POST" action="{{url_for('main.input_data') }}" novalidate> 
+                {{form.csrf_token}}
+                <div class="form-group">
+                    {{ form.mean_radius.label(class="form-label") }}<br>
+                    {{ form.mean_radius(class="form-control") }}<br>
+                    {% for error in form.mean_radius.errors %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.mean_texture.label(class="form-label") }}<br>
+                    {{ form.mean_texture(class="form-control") }}<br>
+                    {% for error in form.mean_texture.errors %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.mean_perimeter.label(class="form-label") }}<br>
+                    {{ form.mean_perimeter(class="form-control") }}<br>
+                    {% for error in form.mean_perimeter.errors %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.mean_area.label(class="form-label") }}<br>
+                    {{ form.mean_area(class="form-control") }}<br>
+                    {% for error in form.mean_area.errors %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <p>{{ form.predict(class="btn btn-primary") }}</p>
+            </form>
+        </div>
+    </section>
+{% endblock %}

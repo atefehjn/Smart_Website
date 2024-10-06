@@ -1,70 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prediction Form</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h1>Enter Data for Prediction</h1>
+{% extends "base.html" %} {% block content %}
+<section class="banner_part">
+	<div class="container form-container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-6">
+				{% for message in get_flashed_messages(category_filter=["success"]) %}
+				<div
+					class="alert alert-success alert-dismissible fade show"
+					role="alert">
+					{{ message }}
+					<button
+						type="button"
+						class="close"
+						data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
 
-      <!-- Display flash messages if any -->
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %}
-      <div class="alert alert-success">
-        {% for category, message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-      </div>
-      {% endif %} {% endwith %}
+				<h1>Enter values for Prediction</h1>
+				<form
+					method="POST"
+					action="{{url_for('main.input_data') }}"
+					novalidate>
+					{{form.csrf_token}}
+					<div class="form-group">
+						{{ form.mean_radius.label(class="form-label") }} {{
+						form.mean_radius(class="form-control") }} {% for error in
+						form.mean_radius.errors %}
+						<span class="text-danger small">{{ error }}</span>
+						{% endfor %}
+					</div>
+					<div class="form-group">
+						{{ form.mean_texture.label(class="form-label") }} {{
+						form.mean_texture(class="form-control") }} {% for error in
+						form.mean_texture.errors %}
+						<span class="text-danger small">{{ error }}</span>
+						{% endfor %}
+					</div>
+					<div class="form-group">
+						{{ form.mean_perimeter.label(class="form-label") }} {{
+						form.mean_perimeter(class="form-control") }} {% for error in
+						form.mean_perimeter.errors %}
+						<span class="text-danger small">{{ error }}</span>
+						{% endfor %}
+					</div>
+					<div class="form-group">
+						{{ form.mean_area.label(class="form-label") }}<br />
+						{{ form.mean_area(class="form-control") }}<br />
+						{% for error in form.mean_area.errors %}
+						<span class="text-danger small">{{ error }}</span>
+						{% endfor %}
+					</div>
+					<br />
+					<div class="text-center">
+						{{ form.predict(class="btn btn-primary btn-lg") }}
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 
-      <form method="POST" action="{{ url_for('main.predict') }}">
-        {{ form.hidden_tag() }}
-        <!-- CSRF token for protection -->
-
-        <div class="form-group">
-          {{ form.mean_radius.label(class="form-label") }} {{
-          form.mean_radius(class="form-control") }} {% for error in
-          form.mean_radius.errors %}
-          <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        <div class="form-group">
-          {{ form.mean_texture.label(class="form-label") }} {{
-          form.mean_texture(class="form-control") }} {% for error in
-          form.mean_texture.errors %}
-          <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        <div class="form-group">
-          {{ form.mean_perimeter.label(class="form-label") }} {{
-          form.mean_perimeter(class="form-control") }} {% for error in
-          form.mean_perimeter.errors %}
-          <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        <div class="form-group">
-          {{ form.mean_area.label(class="form-label") }} {{
-          form.mean_area(class="form-control") }} {% for error in
-          form.mean_area.errors %}
-          <span class="text-danger">{{ error }}</span>
-          {% endfor %}
-        </div>
-
-        {{ form.submit(class="btn btn-primary") }}
-      </form>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  </body>
-</html>
+{% endblock %}

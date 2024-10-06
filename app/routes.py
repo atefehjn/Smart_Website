@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash,Blueprint,abo
 from flask_sqlalchemy import SQLAlchemy
 from .create_db import db, User, bcrypt
 from .ml_prediction import prediction
-from .input import PredictionForm
+from .input_form import InputForm
 
 # from forms import RegistrationForm,SignInForm
 bp = Blueprint('main', __name__)
@@ -36,7 +36,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, password):
             session['username'] = user.username
             flash('Login successful!', 'success')
-            return redirect(url_for('main.predict'))
+            return redirect(url_for('main.input_data'))
         else:
             flash('Login failed. Please check your username and password.', 'danger')
             return redirect(url_for('main.login'))  
@@ -60,26 +60,36 @@ def login_required(f):
     wrap.__name__ = f.__name__
     return wrap
 
-@bp.route('/predict' ,methods=['GET', 'POST'])
+@bp.route('/input' , methods=['GET', 'POST'])
 @login_required
-def predict():
-    form = PredictionForm()
-    if form.validate_on_submit():
-        mean_radius = form.mean_radius.data
-        mean_texture = form.mean_texture.data
-        mean_perimeter = form.mean_perimeter.data
-        mean_area = form.mean_area.data
+def input_data():
+    form = InputForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            featurs = [
+                float(request.form['mean_radius']), 
+                float(request.form['mean_texture']), 
+                float(request.form['mean_perimeter']), 
+                float(request.form['mean_area'])
+            ]
+            # feature_values = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
+            feature_values = [featurs]
+            # print(f'feature_value:{feature_values}')
 
-        # Assuming you have some function that handles predictions
-        data = [[mean_radius, mean_texture, mean_perimeter, mean_area]]
-        result = prediction(data)
-
-        if result[0] == 0:
-            result = "Malignant"
-        else:
-            result = "Benign"
-
-        flash(f'Prediction Result: {result}', 'success')
-        return redirect(url_for('main.predict'))
-
+            result= prediction(feature_values)
+            if result[0] == 0:
+                predicted_cancer = "Benign"
+                explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
+            else:
+                predicted_cancer = "Malignant"
+                explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
+            
+            return render_template('result.html', Cancer_prediction= predicted_cancer, Explanation = explanation )
+     
     return render_template('input.html', form=form)
+
+@bp.route('/result')
+@login_required
+def result():
+    #dispaly outputed result.
+    return render_template('result.html')
