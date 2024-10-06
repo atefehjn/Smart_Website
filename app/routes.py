@@ -38,6 +38,7 @@ def register():
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
+        
         flash("Registration successful, please Login. Thank you", "success")
         return redirect(url_for("main.login"))
 

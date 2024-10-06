@@ -5,7 +5,7 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
-		<title>Cancer Prediction website</title>
+		<title>{% block title %}{% endblock %}</title>
 		<link
 			rel="stylesheet"
 			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -123,6 +123,10 @@
 				</div>
 			</div>
 		</header>
+		
+
+		<!-- Main Block -->
+		<main>{% block content %}{% endblock %}</main>
 		<!-- Flash Messages -->
 		<div class="flash-messages">
 			{% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -141,9 +145,6 @@
 			</div>
 			{% endfor %} {% endif %} {% endwith %}
 		</div>
-
-		<!-- Main Block -->
-		<main>{% block content %}{% endblock %}</main>
 
 		<footer class="footer-area">
 			<div class="footer section_padding">
