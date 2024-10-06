@@ -20,16 +20,24 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')   
-
+        
+        existing_user = User.query.filter_by(username=username).first()
+        
+        if existing_user:
+            flash("Username already exists. Please choose a different one.", "danger")
+            return redirect(url_for('main.register'))  
+        
+        
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         new_user = User(username=username, password=hashed_password)
-        db.session.add(new_user)  
+        
+        db.session.add(new_user)
         db.session.commit()
+        
         flash("Registration successful, please Login. Thank you", "success")
         return redirect(url_for('main.login'))
-
+    
     return render_template('register.html')
-
 
 
 @bp.route('/login', methods=['POST', 'GET'])
