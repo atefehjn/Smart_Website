@@ -79,10 +79,12 @@ def input_data():
             result= prediction(feature_values)
             if result[0] == 0:
                 predicted_cancer = "Benign"
+                explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
             else:
                 predicted_cancer = "Malignant"
+                explanation = "Malignant tumors are cancerous, aggressive and can grow uncontrollably"
             
-            return render_template('result.html', Cancer_prediction= predicted_cancer)
+            return render_template('result.html', Cancer_prediction= predicted_cancer, Explanation = explanation )
      
     return render_template('input.html', form=form)
 
