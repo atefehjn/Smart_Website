@@ -10,7 +10,7 @@ from flask import (
     request,
 )
 from flask_sqlalchemy import SQLAlchemy
-from .create_db import db, User, bcrypt
+from .create_db import db, User, bcrypt,Prediction
 from .ml_prediction import prediction
 from .input_form import InputForm
 
@@ -108,6 +108,22 @@ def input_data():
             else:
                 predicted_cancer = "Benign"
                 explanation = "Benign tumors are noncancerous. They  that stay in their primary location without invading other sites of the body."
+
+             # Get the current user's ID
+            current_user = User.query.filter_by(username=session["username"]).first()
+            user_id = current_user.id
+
+            # Create a new Prediction entry
+            new_prediction = Prediction(
+                user_id=user_id,
+                input_data=str(feature_values),  # Convert the list to a string or JSON
+                prediction_result=predicted_cancer,
+            )
+
+            # Add the new prediction to the database
+            db.session.add(new_prediction)
+            db.session.commit()
+
 
             return render_template(
                 "result.html",
